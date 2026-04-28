@@ -25,18 +25,12 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? "")
 
 const corsOptions = {
   origin: (origin, cb) => {
-    // Allow server-to-server or same-origin
+    // Allow server-to-server / curl (no Origin header)
     if (!origin) return cb(null, true);
-
-    // If no env set → allow your Vercel domain
-    const allowed = ALLOWED_ORIGINS.length
-      ? ALLOWED_ORIGINS
-      : ["https://global-shore-fin-edge.vercel.app"];
-
-    if (allowed.includes(origin)) {
-      return cb(null, true);
-    }
-
+    // No restriction configured → allow all origins
+    if (!ALLOWED_ORIGINS.length) return cb(null, true);
+    // Restriction configured → check against list
+    if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
     return cb(new Error(`Origin ${origin} not allowed by CORS`));
   },
   credentials: true,
