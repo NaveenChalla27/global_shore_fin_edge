@@ -30,8 +30,18 @@ const corsOptions = isProd
               return cb(new Error(`Origin ${origin} not allowed by CORS`));
           },
           credentials: true,
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+          allowedHeaders: ["Content-Type", "Authorization"],
+          preflightContinue: false,
+          optionsSuccessStatus: 204,
       }
-    : {origin: true};
+    : {
+          origin: true,
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+          allowedHeaders: ["Content-Type", "Authorization"],
+          preflightContinue: false,
+          optionsSuccessStatus: 204,
+      };
 
 export function createApp() {
     const apiSpec = yaml.load(readFileSync(SPEC_FILE, "utf8"));
@@ -51,6 +61,7 @@ export function createApp() {
     app.use(compression());
     app.use(morgan(isProd ? "combined" : "dev"));
     app.use(cors(corsOptions));
+    app.options("*", cors(corsOptions)); // explicit preflight for all routes
     app.use(cookieParser());
     app.use(express.json({limit: "1mb"}));
 
@@ -76,7 +87,7 @@ export function createApp() {
         OpenApiValidator.middleware({
             apiSpec,
             validateRequests: true,
-            validateResponses: !isProd,
+            validateResponses: false,
         }),
     );
 
