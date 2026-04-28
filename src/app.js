@@ -61,6 +61,16 @@ export function createApp() {
         app.use("/docs", swaggerUi.serve, swaggerUi.setup(apiSpec, {customSiteTitle: "Edge Service Docs"}));
     }
 
+    // Root health / discovery
+    app.get("/", (_req, res) => {
+        res.json({
+            service: "edge-service",
+            status: "ok",
+            docs: isProd && process.env.EXPOSE_DOCS !== "true" ? null : "/docs",
+            health: "/api/health",
+        });
+    });
+
     // Spec-driven request/response validation
     app.use(
         OpenApiValidator.middleware({
