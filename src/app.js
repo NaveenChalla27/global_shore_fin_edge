@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
@@ -13,8 +14,10 @@ import { errorHandler } from "./middleware/errorHandler.js";
 
 const isProd = process.env.NODE_ENV === "production";
 
-// ENV: ALLOWED_ORIGINS=https://your-domain.com
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? "")
+// ENV: ALLOWED_ORIGINS=https://your-domain.com,https://other-domain.com
+const ALLOWED_ORIGINS = (
+  process.env.ALLOWED_ORIGINS ?? "http://www.globalshorefinservices.com,https://www.globalshorefinservices.com"
+)
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
@@ -24,6 +27,19 @@ export function createApp() {
 
   const app = express();
 
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        // Allow requests with no origin (e.g. server-to-server, curl)
+        if (!origin) return callback(null, true);
+        if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+        callback(new Error(`CORS: origin '${origin}' not allowed`));
+      },
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
 
   app.use(
     helmet({
