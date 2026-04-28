@@ -7,6 +7,8 @@ info:
     Manage countries, their services, and the site's contact details
     without touching the front-end code.
 servers:
+  - url: https://global-shore-fin-edge.vercel.app
+    description: Production (Vercel)
   - url: http://localhost:4000
     description: Local dev
 tags:
