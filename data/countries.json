@@ -1,0 +1,100 @@
+{
+  "countries": [
+    {
+      "code": "US",
+      "name": "United States",
+      "short": "US",
+      "flag": "🇺🇸",
+      "status": "active",
+      "eyebrow": "US Financial Services",
+      "heroTitle": "Your US Financial Partner — Payroll, Tax, Accounting & Compliance.",
+      "heroSub": "Expert services for US businesses, NRIs, expats, and immigrants. Delivered remotely. Trusted globally.",
+      "trustBadges": ["IRS Authorised", "QuickBooks ProAdvisor", "CPA Supervised", "Serving 50 US States"],
+      "services": [
+        {"key": "payroll", "title": "Payroll & HR", "desc": "End-to-end payroll processing, payroll taxation, and labour-law compliance."},
+        {"key": "tax", "title": "Taxation", "desc": "Individual, business, expat, and sales & use tax preparation and planning."},
+        {"key": "accounting", "title": "Accounting", "desc": "Bookkeeping, full-cycle accounting, AR/AP, and bank reconciliations."},
+        {"key": "compliance", "title": "Compliance", "desc": "Audit support, payroll compliance, and multi-state filing requirements."},
+        {"key": "formation", "title": "Business Formation", "desc": "LLC formation, incorporation, EIN, and registered-agent services."}
+      ],
+      "stats": [
+        {"num": "500+", "label": "Clients Served"},
+        {"num": "15+", "label": "Years Combined Experience"},
+        {"num": "50", "label": "US States Covered"},
+        {"num": "98%", "label": "Client Retention Rate"}
+      ]
+    },
+    {
+      "code": "IN",
+      "name": "India",
+      "short": "IN",
+      "flag": "🇮🇳",
+      "status": "coming-soon",
+      "eyebrow": "India Financial Services",
+      "heroTitle": "Your India Financial Partner — GST, Income Tax, Accounting & Compliance.",
+      "heroSub": "Expert services for Indian businesses, startups, and NRIs returning home. Coming soon.",
+      "trustBadges": ["GST Registered", "ICAI Affiliated", "MCA Compliant", "All India Coverage"],
+      "services": [
+        {"key": "payroll", "title": "Payroll & PF/ESI", "desc": "Salary processing, PF, ESI, and labour-law compliance."},
+        {"key": "tax", "title": "Income Tax & GST", "desc": "ITR, GST returns, TDS, and tax planning."},
+        {"key": "accounting", "title": "Accounting", "desc": "Bookkeeping, Tally, Zoho, and statutory accounting."},
+        {"key": "compliance", "title": "ROC & Compliance", "desc": "ROC filings, MCA compliance, and statutory audits."},
+        {"key": "formation", "title": "Company Formation", "desc": "Pvt Ltd, LLP, OPC incorporation and DIN/DSC."}
+      ],
+      "stats": [
+        {"num": "Soon", "label": "Launching 2026"},
+        {"num": "28", "label": "States & UTs"},
+        {"num": "GST", "label": "Registered"},
+        {"num": "Pan-India", "label": "Coverage"}
+      ]
+    },
+    {
+      "code": "UK",
+      "name": "United Kingdom",
+      "short": "UK",
+      "flag": "🇬🇧",
+      "status": "coming-soon",
+      "eyebrow": "UK Financial Services",
+      "heroTitle": "Your UK Financial Partner — PAYE, VAT, Accounting & Compliance.",
+      "heroSub": "Expert services for UK businesses, contractors, and expats. Coming soon.",
+      "trustBadges": ["HMRC Registered", "ACCA Supervised", "MTD Compliant", "All UK Coverage"],
+      "services": [
+        {"key": "payroll", "title": "PAYE & Payroll", "desc": "PAYE, NIC, RTI, and auto-enrolment pensions."},
+        {"key": "tax", "title": "Self-Assessment & VAT", "desc": "Self-assessment, corporation tax, and VAT returns."},
+        {"key": "accounting", "title": "Accounting", "desc": "Bookkeeping, Xero, QuickBooks, and management accounts."},
+        {"key": "compliance", "title": "Compliance", "desc": "Companies House filings and MTD compliance."},
+        {"key": "formation", "title": "Company Formation", "desc": "Ltd company formation, registered office, and VAT registration."}
+      ],
+      "stats": [
+        {"num": "Soon", "label": "Launching 2026"},
+        {"num": "MTD", "label": "Compliant"},
+        {"num": "ACCA", "label": "Supervised"},
+        {"num": "UK-wide", "label": "Coverage"}
+      ]
+    },
+    {
+      "code": "CA",
+      "name": "Canada",
+      "short": "CA",
+      "flag": "🇨🇦",
+      "status": "coming-soon",
+      "eyebrow": "Canada Financial Services",
+      "heroTitle": "Your Canada Financial Partner — Payroll, GST/HST, Accounting & Compliance.",
+      "heroSub": "Expert services for Canadian businesses, contractors, and immigrants. Coming soon.",
+      "trustBadges": ["CRA Registered", "CPA Supervised", "GST/HST Compliant", "All Provinces Covered"],
+      "services": [
+        {"key": "payroll", "title": "Payroll & Source Deductions", "desc": "Payroll, CPP, EI, and T4 filings."},
+        {"key": "tax", "title": "Personal & Corporate Tax", "desc": "T1, T2, GST/HST, and provincial tax filings."},
+        {"key": "accounting", "title": "Accounting", "desc": "Bookkeeping, QuickBooks, and management reporting."},
+        {"key": "compliance", "title": "Compliance", "desc": "CRA compliance, audit support, and provincial filings."},
+        {"key": "formation", "title": "Business Formation", "desc": "Federal & provincial incorporation and BN/HST registration."}
+      ],
+      "stats": [
+        {"num": "Soon", "label": "Launching 2026"},
+        {"num": "10", "label": "Provinces Covered"},
+        {"num": "CRA", "label": "Registered"},
+        {"num": "CPA", "label": "Supervised"}
+      ]
+    }
+  ]
+}

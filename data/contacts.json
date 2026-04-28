@@ -1,0 +1,14 @@
+{
+  "phone": "+1 (203) 435-3563",
+  "phoneHref": "tel:+12034353563",
+  "email": "support@globalshore.com",
+  "emailHref": "mailto:support@globalshore.com",
+  "hours": "Mon-Fri: 9AM - 7PM (MST)",
+  "whatsapp": "10000000000",
+  "address": "Hyderabad, India",
+  "socials": {
+    "linkedin": "#",
+    "twitter": "#",
+    "instagram": "#"
+  }
+}

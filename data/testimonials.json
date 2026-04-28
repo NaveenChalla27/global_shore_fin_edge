@@ -1,0 +1,31 @@
+{
+  "testimonials": [
+    {
+      "id": "priya-r",
+      "text": "Global Shore handled my H1B tax return and FBAR filings flawlessly. Clear pricing, fast turnaround, and they actually explained things in plain English.",
+      "name": "Priya R.",
+      "meta": "New Jersey \u00b7 Individual Taxation",
+      "initials": "PR",
+      "rating": 5,
+      "publishedAt": "2026-01-15"
+    },
+    {
+      "id": "marcus-t",
+      "text": "We switched our payroll from a national provider to Global Shore last year. Better service, better price, and zero compliance issues since.",
+      "name": "Marcus T.",
+      "meta": "Texas \u00b7 Payroll Services",
+      "initials": "MT",
+      "rating": 5,
+      "publishedAt": "2025-11-02"
+    },
+    {
+      "id": "anand-k",
+      "text": "Incorporated my LLC from Bangalore in under two weeks. EIN, banking guidance, S-Corp election \u2014 all handled by one team.",
+      "name": "Anand K.",
+      "meta": "NRI \u00b7 LLC Formation",
+      "initials": "AK",
+      "rating": 5,
+      "publishedAt": "2025-09-20"
+    }
+  ]
+}

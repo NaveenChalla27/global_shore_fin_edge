@@ -1,0 +1,631 @@
+openapi: 3.0.3
+info:
+  title: Global Shore Edge Service
+  version: 1.0.0
+  description: |
+    Dynamic content API powering the Global Shore UI.
+    Manage countries, their services, and the site's contact details
+    without touching the front-end code.
+servers:
+  - url: http://localhost:4000
+    description: Local dev
+tags:
+  - name: Health
+  - name: Auth
+  - name: Countries
+  - name: Services
+  - name: Contacts
+  - name: Posts
+  - name: Bookings
+  - name: Testimonials
+
+paths:
+  /api/health:
+    get:
+      tags: [Health]
+      summary: Liveness probe
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok, service]
+                properties:
+                  ok: {type: boolean}
+                  service: {type: string}
+
+  /api/countries:
+    get:
+      tags: [Countries]
+      summary: List all countries
+      responses:
+        "200":
+          description: List wrapper
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [countries]
+                properties:
+                  countries:
+                    type: array
+                    items: {$ref: "#/components/schemas/Country"}
+    post:
+      tags: [Countries]
+      summary: Create a new country
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/CountryInput"}
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Country"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+        "409": {$ref: "#/components/responses/Conflict"}
+
+  /api/countries/{code}:
+    parameters:
+      - $ref: "#/components/parameters/CountryCode"
+    get:
+      tags: [Countries]
+      summary: Get one country
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Country"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    put:
+      tags: [Countries]
+      summary: Update a country (merge)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/CountryUpdate"}
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Country"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    delete:
+      tags: [Countries]
+      summary: Delete a country
+      responses:
+        "204": {description: Deleted}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /api/countries/{code}/services:
+    parameters:
+      - $ref: "#/components/parameters/CountryCode"
+    post:
+      tags: [Services]
+      summary: Add a service to a country
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/Service"}
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Service"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "409": {$ref: "#/components/responses/Conflict"}
+
+  /api/countries/{code}/services/{key}:
+    parameters:
+      - $ref: "#/components/parameters/CountryCode"
+      - $ref: "#/components/parameters/ServiceKey"
+    put:
+      tags: [Services]
+      summary: Update one service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/ServiceUpdate"}
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Service"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    delete:
+      tags: [Services]
+      summary: Remove a service
+      responses:
+        "204": {description: Deleted}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /api/contacts:
+    get:
+      tags: [Contacts]
+      summary: Read contact details
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Contacts"}
+    put:
+      tags: [Contacts]
+      summary: Update contact details (merge)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/Contacts"}
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Contacts"}
+
+  /api/posts:
+    get:
+      tags: [Posts]
+      summary: List blog posts
+      responses:
+        "200":
+          description: List wrapper
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [posts]
+                properties:
+                  posts:
+                    type: array
+                    items: {$ref: "#/components/schemas/Post"}
+    post:
+      tags: [Posts]
+      summary: Create a new blog post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PostInput"}
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Post"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+        "409": {$ref: "#/components/responses/Conflict"}
+
+  /api/posts/{slug}:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema: {type: string, minLength: 1}
+    get:
+      tags: [Posts]
+      summary: Get one post
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Post"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    put:
+      tags: [Posts]
+      summary: Update a post (merge)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PostUpdate"}
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Post"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    delete:
+      tags: [Posts]
+      summary: Delete a post
+      responses:
+        "204": {description: Deleted}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /api/auth/login:
+    post:
+      tags: [Auth]
+      summary: Admin login — sets an httpOnly JWT cookie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: {type: string}
+                password: {type: string, format: password}
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok: {type: boolean}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+
+  /api/auth/me:
+    get:
+      tags: [Auth]
+      summary: Verify session cookie and return current admin username
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [username]
+                properties:
+                  username: {type: string}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+
+  /api/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Clear the auth cookie
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok: {type: boolean}
+
+  /api/bookings:
+    get:
+      tags: [Bookings]
+      summary: List consultation booking requests
+      security:
+        - cookieAuth: []
+      responses:
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "200":
+          description: List wrapper
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [bookings]
+                properties:
+                  bookings:
+                    type: array
+                    items: {$ref: "#/components/schemas/Booking"}
+    post:
+      tags: [Bookings]
+      summary: Submit a new consultation request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/BookingInput"}
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Booking"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+
+  /api/testimonials:
+    get:
+      tags: [Testimonials]
+      summary: List testimonials
+      responses:
+        "200":
+          description: List wrapper
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [testimonials]
+                properties:
+                  testimonials:
+                    type: array
+                    items: {$ref: "#/components/schemas/Testimonial"}
+    post:
+      tags: [Testimonials]
+      summary: Create a testimonial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/TestimonialInput"}
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Testimonial"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+
+  /api/testimonials/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: {type: string, minLength: 1}
+    get:
+      tags: [Testimonials]
+      summary: Get one testimonial
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Testimonial"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    put:
+      tags: [Testimonials]
+      summary: Update a testimonial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/TestimonialInput"}
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Testimonial"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    delete:
+      tags: [Testimonials]
+      summary: Delete a testimonial
+      responses:
+        "204": {description: Deleted}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+components:
+  parameters:
+    CountryCode:
+      name: code
+      in: path
+      required: true
+      description: ISO-style country code (e.g. US, IN, UK, AE, CA)
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 3
+    ServiceKey:
+      name: key
+      in: path
+      required: true
+      schema: {$ref: "#/components/schemas/ServiceKeyEnum"}
+
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: gsf_auth
+
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Error"}
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Error"}
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Error"}
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Error"}
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: {type: string}
+        details: {}
+
+    ServiceKeyEnum:
+      type: string
+      enum: [payroll, tax, accounting, compliance, formation, advisory]
+
+    Service:
+      type: object
+      required: [key, title]
+      properties:
+        key: {$ref: "#/components/schemas/ServiceKeyEnum"}
+        title: {type: string}
+        desc: {type: string}
+
+    ServiceUpdate:
+      type: object
+      properties:
+        title: {type: string}
+        desc: {type: string}
+
+    Stat:
+      type: object
+      required: [num, label]
+      properties:
+        num: {type: string}
+        label: {type: string}
+
+    Country:
+      type: object
+      required: [code, name]
+      properties:
+        code: {type: string}
+        name: {type: string}
+        short: {type: string}
+        flag: {type: string}
+        status:
+          type: string
+          enum: [active, coming-soon]
+        eyebrow: {type: string}
+        heroTitle: {type: string}
+        heroSub: {type: string}
+        trustBadges:
+          type: array
+          items: {type: string}
+        services:
+          type: array
+          items: {$ref: "#/components/schemas/Service"}
+        stats:
+          type: array
+          items: {$ref: "#/components/schemas/Stat"}
+
+    CountryInput:
+      allOf:
+        - {$ref: "#/components/schemas/Country"}
+
+    CountryUpdate:
+      type: object
+      description: Any subset of Country fields except `code` (which is immutable).
+      properties:
+        name: {type: string}
+        short: {type: string}
+        flag: {type: string}
+        status:
+          type: string
+          enum: [active, coming-soon]
+        eyebrow: {type: string}
+        heroTitle: {type: string}
+        heroSub: {type: string}
+        trustBadges:
+          type: array
+          items: {type: string}
+        services:
+          type: array
+          items: {$ref: "#/components/schemas/Service"}
+        stats:
+          type: array
+          items: {$ref: "#/components/schemas/Stat"}
+
+    Contacts:
+      type: object
+      properties:
+        phone: {type: string}
+        phoneHref: {type: string}
+        email: {type: string}
+        emailHref: {type: string}
+        hours: {type: string}
+        whatsapp: {type: string}
+        address: {type: string}
+        socials:
+          type: object
+          properties:
+            linkedin: {type: string}
+            twitter: {type: string}
+            instagram: {type: string}
+          additionalProperties: {type: string}
+    Testimonial:
+      type: object
+      required: [id, text, name, meta, initials, rating]
+      properties:
+        id: {type: string}
+        text: {type: string}
+        name: {type: string}
+        meta: {type: string}
+        initials: {type: string}
+        rating: {type: integer, minimum: 1, maximum: 5}
+        publishedAt: {type: string}
+
+    TestimonialInput:
+      type: object
+      required: [text, name, meta, initials, rating]
+      properties:
+        id: {type: string}
+        text: {type: string}
+        name: {type: string}
+        meta: {type: string}
+        initials: {type: string}
+        rating: {type: integer, minimum: 1, maximum: 5}
+        publishedAt: {type: string}
+    Post:
+      type: object
+      required: [slug, title, tag]
+      properties:
+        slug: {type: string, minLength: 1, description: "URL-safe identifier (lowercase, hyphens)"}
+        title: {type: string, minLength: 1}
+        tag: {type: string, minLength: 1, description: "Category label e.g. 'US Tax Tips'"}
+        excerpt: {type: string}
+        image: {type: string, format: uri, description: "Featured image URL (16:9 recommended)"}
+        thumb: {type: string, description: "Fallback gradient thumbnail key (thumb | thumb2 | thumb3)"}
+        publishedAt: {type: string, description: "ISO date YYYY-MM-DD"}
+        body: {type: string, description: "Full post body (markdown or HTML)"}
+
+    PostInput:
+      allOf:
+        - {$ref: "#/components/schemas/Post"}
+
+    PostUpdate:
+      type: object
+      description: Any subset of Post fields except `slug` (immutable).
+      properties:
+        title: {type: string}
+        tag: {type: string}
+        excerpt: {type: string}
+        image: {type: string, format: uri}
+        thumb: {type: string}
+        publishedAt: {type: string}
+        body: {type: string}
+
+    BookingInput:
+      type: object
+      required: [name, email]
+      properties:
+        name: {type: string, minLength: 1}
+        email: {type: string, format: email}
+        phone: {type: string}
+        country: {type: string}
+        service: {type: string, description: "Service the user is interested in"}
+        preferredAt: {type: string, description: "Preferred date/time, free text or ISO"}
+        message: {type: string}
+
+    Booking:
+      allOf:
+        - {$ref: "#/components/schemas/BookingInput"}
+        - type: object
+          required: [id, createdAt]
+          properties:
+            id: {type: string}
+            createdAt: {type: string, format: date-time}

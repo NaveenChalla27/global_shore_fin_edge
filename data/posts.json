@@ -1,0 +1,204 @@
+{
+  "posts": [
+    {
+      "slug": "how-to-file-us-taxes-as-an-nri-2026",
+      "tag": "US Tax Tips",
+      "title": "How to File US Taxes as an NRI — Step by Step (2026)",
+      "excerpt": "A complete walkthrough for non-resident Indians filing their first or next US return.",
+      "image": "https://loremflickr.com/800/450/tax,filing,1040?lock=101",
+      "thumb": "thumb",
+      "publishedAt": "2026-04-18",
+      "body": "Filing US taxes as a non-resident Indian can feel overwhelming the first time. This step-by-step guide walks you through residency status, the right forms (1040-NR vs 1040), reporting Indian income, claiming treaty benefits, and avoiding common mistakes that lead to IRS notices.\n\nWe cover how to determine your filing status, gather W-2s and 1099s, report Indian bank interest under FBAR thresholds, and apply the India–US tax treaty to avoid double taxation."
+    },
+    {
+      "slug": "h1b-visa-holder-tax-filing-guide",
+      "tag": "US Tax Tips",
+      "title": "H1B Visa Holder Tax Filing Guide — What You Need to Know",
+      "excerpt": "Resident vs non-resident status, FICA, state taxes, and deductions every H1B holder should claim.",
+      "image": "https://loremflickr.com/800/450/visa,passport,office?lock=102",
+      "thumb": "thumb2",
+      "publishedAt": "2026-04-15",
+      "body": "H1B holders are usually treated as US tax residents under the substantial presence test, which means worldwide income reporting. We break down FICA exemptions, dual-status returns in your first year, state residency rules, and the deductions H1B professionals most often miss."
+    },
+    {
+      "slug": "llc-vs-s-corp-which-is-better",
+      "tag": "Business Formation",
+      "title": "LLC vs S-Corp: Which is Better for Your US Business?",
+      "excerpt": "Tax treatment, liability, and ongoing compliance compared head to head.",
+      "image": "https://loremflickr.com/800/450/business,startup,office?lock=103",
+      "thumb": "thumb3",
+      "publishedAt": "2026-04-12",
+      "body": "An LLC and an S-Corp are not opposites — an LLC is a legal entity, while S-Corp is a tax election. We compare self-employment tax savings, payroll requirements, owner draws vs salary, state filing fees, and which structure fits a solo founder vs a multi-member team."
+    },
+    {
+      "slug": "what-is-fbar-and-do-i-need-to-file",
+      "tag": "Expat Corner",
+      "title": "What is FBAR and Do I Need to File It?",
+      "excerpt": "The FinCEN 114 explained — thresholds, deadlines, and penalties to avoid.",
+      "image": "https://loremflickr.com/800/450/bank,finance,documents?lock=104",
+      "thumb": "thumb",
+      "publishedAt": "2026-04-08",
+      "body": "FBAR (FinCEN Form 114) is required if the aggregate value of your foreign financial accounts exceeded $10,000 at any time during the year. We explain who must file, what counts as a foreign account, deadlines, and the steep penalties for non-compliance — plus the streamlined procedures if you are behind."
+    },
+    {
+      "slug": "payroll-tax-deadlines-2026",
+      "tag": "Payroll & HR",
+      "title": "Payroll Tax Deadlines for US Small Businesses in 2026",
+      "excerpt": "Quarterly Form 941, annual 940, W-2/1099 — every date a small business needs on the calendar.",
+      "image": "https://loremflickr.com/800/450/calendar,deadline,planner?lock=105",
+      "thumb": "thumb2",
+      "publishedAt": "2026-04-04",
+      "body": "Missing a payroll tax deadline triggers automatic IRS penalties. This calendar covers monthly and semi-weekly deposit schedules, the four 941 quarterly deadlines, the annual 940 (FUTA), W-2/1099 distribution dates, and state unemployment filings."
+    },
+    {
+      "slug": "how-to-set-up-payroll-first-time",
+      "tag": "Payroll & HR",
+      "title": "How to Set Up Payroll for the First Time in the US",
+      "excerpt": "From EIN to first paycheck — the 8-step setup checklist for new US employers.",
+      "image": "https://loremflickr.com/800/450/payroll,paycheck,office?lock=106",
+      "thumb": "thumb3",
+      "publishedAt": "2026-04-01",
+      "body": "Setting up payroll correctly the first time saves months of cleanup later. The eight steps: get an EIN, register for state withholding and unemployment, classify workers, choose pay frequency, collect W-4s and I-9s, set up a payroll provider or processor, schedule deposits, and run your first payroll."
+    },
+    {
+      "slug": "sales-tax-nexus-explained",
+      "tag": "Compliance Updates",
+      "title": "Sales Tax Nexus Explained: Do You Owe Sales Tax in Every State?",
+      "excerpt": "Economic vs physical nexus after Wayfair, and how to know when you must register.",
+      "image": "https://loremflickr.com/800/450/usa,map,states?lock=107",
+      "thumb": "thumb",
+      "publishedAt": "2026-03-28",
+      "body": "Since the 2018 Wayfair decision, every US state can require out-of-state sellers to collect sales tax once they cross an economic threshold (typically $100,000 in sales or 200 transactions). We map each state's threshold and explain how to monitor nexus as you grow."
+    },
+    {
+      "slug": "bookkeeping-vs-accounting-difference",
+      "tag": "Accounting Insights",
+      "title": "Bookkeeping vs Accounting — What's the Difference and Which Do You Need?",
+      "excerpt": "The two functions overlap but serve different purposes — here's how to know which (or both) you need.",
+      "image": "https://loremflickr.com/800/450/bookkeeping,ledger,accounting?lock=108",
+      "thumb": "thumb2",
+      "publishedAt": "2026-03-25",
+      "body": "Bookkeeping is the daily recording of transactions; accounting is the analysis, reporting, and tax planning that sits on top of clean books. Most small businesses need bookkeeping monthly and accounting quarterly. We explain what each role delivers and when to hire."
+    },
+    {
+      "slug": "incorporate-us-company-as-non-resident",
+      "tag": "Business Formation",
+      "title": "How to Incorporate a US Company as a Non-Resident",
+      "excerpt": "State selection, EIN without SSN, banking, and registered agent — the complete non-resident playbook.",
+      "image": "https://loremflickr.com/800/450/skyscraper,city,corporate?lock=109",
+      "thumb": "thumb3",
+      "publishedAt": "2026-03-22",
+      "body": "You do not need a US visa, SSN, or US address to form a US company. We walk through choosing between Delaware, Wyoming, and your customer state, getting an EIN as a non-resident (Form SS-4 by fax), opening a US business bank account remotely, and meeting BOI reporting requirements."
+    },
+    {
+      "slug": "itin-application-guide-non-residents",
+      "tag": "US Tax Tips",
+      "title": "ITIN Application Guide for Non-US Residents",
+      "excerpt": "Form W-7, certified document options, processing times, and renewal rules — explained simply.",
+      "image": "https://loremflickr.com/800/450/passport,documents,application?lock=110",
+      "thumb": "thumb",
+      "publishedAt": "2026-03-19",
+      "body": "An ITIN (Individual Taxpayer Identification Number) lets non-residents file US taxes, claim treaty benefits, and open US bank accounts. We cover Form W-7, the document certification options (CAA vs IRS office vs original passport), typical 7–11 week processing, and when an ITIN expires."
+    },
+    {
+      "slug": "what-happens-if-you-dont-file-us-taxes-expat",
+      "tag": "Expat Corner",
+      "title": "What Happens if You Don't File US Taxes as an Expat?",
+      "excerpt": "Penalties, passport revocation, and how the Streamlined Procedures can bring you back into compliance.",
+      "image": "https://loremflickr.com/800/450/passport,airport,travel?lock=111",
+      "thumb": "thumb2",
+      "publishedAt": "2026-03-15",
+      "body": "US citizens and green card holders must file US returns no matter where they live. We outline failure-to-file and FBAR penalties, the IRS Streamlined Foreign Offshore Procedures for non-willful non-compliance, and how to catch up on three years of returns and six years of FBARs."
+    },
+    {
+      "slug": "quarterly-estimated-tax-payments",
+      "tag": "US Tax Tips",
+      "title": "Quarterly Estimated Tax Payments — Who Needs to Pay and How",
+      "excerpt": "Avoid the underpayment penalty with the safe-harbor rule and Form 1040-ES.",
+      "image": "https://loremflickr.com/800/450/calculator,tax,money?lock=112",
+      "thumb": "thumb3",
+      "publishedAt": "2026-03-11",
+      "body": "If you owe more than $1,000 at tax time, the IRS expects quarterly estimated payments. We explain the safe-harbor rule (110% of last year's tax for high earners), the four due dates (April 15, June 15, Sept 15, Jan 15), and how to pay via EFTPS or IRS Direct Pay."
+    },
+    {
+      "slug": "top-10-tax-deductions-freelancers",
+      "tag": "US Tax Tips",
+      "title": "Top 10 Tax Deductions for Freelancers and Independent Contractors",
+      "excerpt": "Home office, health insurance, retirement, mileage — deductions every 1099 worker should claim.",
+      "image": "https://loremflickr.com/800/450/freelancer,laptop,homeoffice?lock=113",
+      "thumb": "thumb",
+      "publishedAt": "2026-03-08",
+      "body": "Freelancers leave thousands on the table by missing legitimate deductions. The big ten: home office, health insurance, SEP-IRA / solo 401(k) contributions, business mileage, professional development, software subscriptions, phone and internet, half of self-employment tax, business meals (50%), and qualified business income (QBI) deduction."
+    },
+    {
+      "slug": "how-to-close-us-business",
+      "tag": "Compliance Updates",
+      "title": "How to Close a US Business the Right Way — Tax & Compliance Checklist",
+      "excerpt": "Final returns, payroll wind-down, state dissolution, and asset distribution — done in the correct order.",
+      "image": "https://loremflickr.com/800/450/closed,business,checklist?lock=114",
+      "thumb": "thumb2",
+      "publishedAt": "2026-03-04",
+      "body": "Closing a business is more than walking away. File final 941, 940, W-2s, and 1099s; cancel state registrations; file Articles of Dissolution; close the EIN account; and file a final 1120 / 1120-S / 1065 with the 'final return' box checked. Skipping a step keeps the entity (and its filing obligations) alive."
+    },
+    {
+      "slug": "w2-vs-1099-difference",
+      "tag": "Payroll & HR",
+      "title": "W-2 vs 1099 — What's the Difference for Your Workers?",
+      "excerpt": "Misclassification is one of the costliest payroll mistakes — here's how to get it right.",
+      "image": "https://loremflickr.com/800/450/contract,employee,paperwork?lock=115",
+      "thumb": "thumb3",
+      "publishedAt": "2026-03-01",
+      "body": "The IRS uses behavioral, financial, and relationship factors to decide if a worker is an employee (W-2) or an independent contractor (1099). Misclassification leads to back taxes, penalties, and benefits exposure. We explain the test and the safe-harbor reclassification options."
+    },
+    {
+      "slug": "moving-to-us-on-a-visa-tax-steps",
+      "tag": "US Tax Tips",
+      "title": "Moving to the US on a Visa — Your Tax First Steps",
+      "excerpt": "SSN/ITIN, dual-status year, and the foreign-income reporting rules new arrivals miss.",
+      "image": "https://loremflickr.com/800/450/luggage,airport,immigration?lock=116",
+      "thumb": "thumb",
+      "publishedAt": "2026-02-26",
+      "body": "Your first US tax year on a work visa is almost always a dual-status year — non-resident for part, resident for the rest. We cover the substantial presence test, SSN application, the first-year choice, and how to report the income you earned abroad before moving."
+    },
+    {
+      "slug": "state-income-tax-remote-workers",
+      "tag": "US Tax Tips",
+      "title": "State Income Tax Guide for Remote Workers",
+      "excerpt": "Convenience-of-the-employer rules, residency tests, and how to avoid double-state taxation.",
+      "image": "https://loremflickr.com/800/450/remote,workfromhome,laptop?lock=117",
+      "thumb": "thumb2",
+      "publishedAt": "2026-02-22",
+      "body": "Working from one state for an employer in another can create a tax bill in both. We explain the convenience-of-the-employer rule (NY, NJ, CT, PA, DE), how to claim a credit for taxes paid to another state, and which seven states have no income tax at all."
+    },
+    {
+      "slug": "bank-reconciliation-importance",
+      "tag": "Accounting Insights",
+      "title": "Bank Reconciliation: Why It Matters and How Often to Do It",
+      "excerpt": "The single most important monthly task most small businesses skip.",
+      "image": "https://loremflickr.com/800/450/bank,statement,reconciliation?lock=118",
+      "thumb": "thumb3",
+      "publishedAt": "2026-02-18",
+      "body": "Bank reconciliation matches your books to the bank statement and catches duplicate charges, missed deposits, fraud, and bookkeeping errors before they snowball. Do it monthly, the day the statement closes — never quarterly, never annually."
+    },
+    {
+      "slug": "how-to-choose-an-accountant",
+      "tag": "Accounting Insights",
+      "title": "How to Choose an Accountant for Your Small Business",
+      "excerpt": "Eight questions to ask before hiring — and three red flags that should make you walk away.",
+      "image": "https://loremflickr.com/800/450/accountant,handshake,meeting?lock=119",
+      "thumb": "thumb",
+      "publishedAt": "2026-02-14",
+      "body": "Not every accountant is right for every business. We list the eight questions to ask in a discovery call (industry experience, software, response time, fee structure, who actually does the work) and the red flags — guaranteed refunds, percentage-of-refund fees, and no PTIN."
+    },
+    {
+      "slug": "year-end-tax-checklist-business-owners",
+      "tag": "US Tax Tips",
+      "title": "Year-End Tax Checklist for US Business Owners",
+      "excerpt": "Twelve moves to make before December 31 — from retirement contributions to depreciation elections.",
+      "image": "https://loremflickr.com/800/450/checklist,planning,yearend?lock=120",
+      "thumb": "thumb2",
+      "publishedAt": "2026-02-10",
+      "body": "December is your last window to lower this year's tax bill. The checklist: max retirement contributions, accelerate expenses, defer income where possible, take Section 179 / bonus depreciation, send 1099s, reconcile shareholder loans, and review estimated payments to avoid the underpayment penalty."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "edge-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dynamic content API for Global Shore Fin Services UI (countries, services, contacts).",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "prod": "NODE_ENV=production node index.js",
+    "vercel-start": "node index.js"
+  },
+  "dependencies": {
+    "compression": "^1.7.5",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-openapi-validator": "^5.3.7",
+    "helmet": "^8.0.0",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.0",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
