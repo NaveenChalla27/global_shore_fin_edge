@@ -5,7 +5,7 @@
       "src": "api/index.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["data/**", "openapi.yaml"]
+        "includeFiles": ["data/**", "openapi.yaml", "node_modules/swagger-ui-dist/**"]
       }
     }
   ],
