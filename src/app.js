@@ -16,33 +16,34 @@ const isProd = process.env.NODE_ENV === "production";
 
 // Comma-separated list, e.g.
 //   ALLOWED_ORIGINS=https://globalshorefinservices.com,https://www.globalshorefinservices.com
+
+
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? "")
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
 
-const corsOptions = isProd
-    ? {
-          origin: (origin, cb) => {
-              // Allow same-origin / curl / server-to-server (no Origin header)
-              if (!origin) return cb(null, true);
-              if (ALLOWED_ORIGINS.length === 0 || ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
-              return cb(new Error(`Origin ${origin} not allowed by CORS`));
-          },
-          credentials: true,
-          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-          allowedHeaders: ["Content-Type", "Authorization"],
-          preflightContinue: false,
-          optionsSuccessStatus: 204,
-      }
-    : {
-          origin: true,
-          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-          allowedHeaders: ["Content-Type", "Authorization"],
-          preflightContinue: false,
-          optionsSuccessStatus: 204,
-      };
+const corsOptions = {
+  origin: (origin, cb) => {
+    // Allow server-to-server or same-origin
+    if (!origin) return cb(null, true);
 
+    // If no env set → allow your Vercel domain
+    const allowed = ALLOWED_ORIGINS.length
+      ? ALLOWED_ORIGINS
+      : ["https://global-shore-fin-edge.vercel.app"];
+
+    if (allowed.includes(origin)) {
+      return cb(null, true);
+    }
+
+    return cb(new Error(`Origin ${origin} not allowed by CORS`));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204,
+};
 export function createApp() {
     const apiSpec = yaml.load(readFileSync(SPEC_FILE, "utf8"));
 
