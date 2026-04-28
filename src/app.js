@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
@@ -35,54 +34,6 @@ export function createApp() {
 
   app.use(compression());
   app.use(morgan(isProd ? "combined" : "dev"));
-
-  app.use(
-    cors({
-      origin: (origin, cb) => {
-        if (!origin) return cb(null, true);
-
-        if (!ALLOWED_ORIGINS.length) {
-          return cb(null, true);
-        }
-
-        if (ALLOWED_ORIGINS.includes(origin)) {
-          return cb(null, true);
-        }
-
-        return cb(new Error(`Origin ${origin} not allowed by CORS`));
-      },
-      credentials: true,
-    })
-  );
-
-  // HARD FIX FOR VERCEL (preflight + headers)
-  app.use((req, res, next) => {
-    const origin = req.headers.origin;
-
-    if (!origin || !ALLOWED_ORIGINS.length || ALLOWED_ORIGINS.includes(origin)) {
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        origin || "https://global-shore-fin-edge.vercel.app"
-      );
-    }
-
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET,POST,PUT,DELETE,OPTIONS"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-
-    // Handle preflight explicitly
-    if (req.method === "OPTIONS") {
-      return res.status(204).end();
-    }
-
-    next();
-  });
 
   app.use(cookieParser());
   app.use(express.json({ limit: "1mb" }));
