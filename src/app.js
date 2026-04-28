@@ -35,6 +35,24 @@ export function createApp() {
   app.use(compression());
   app.use(morgan(isProd ? "combined" : "dev"));
 
+  // CORS — must run before every other middleware so all responses carry the header
+  app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    const allowed = ALLOWED_ORIGINS.length ? ALLOWED_ORIGINS : null;
+    if (origin && (!allowed || allowed.includes(origin))) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+    } else if (!origin) {
+      // server-to-server / curl — no header needed
+    } else {
+      res.setHeader("Access-Control-Allow-Origin", ""); // blocked
+    }
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,PATCH,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+    if (req.method === "OPTIONS") return res.status(204).end();
+    next();
+  });
+
   app.use(cookieParser());
   app.use(express.json({ limit: "1mb" }));
 
