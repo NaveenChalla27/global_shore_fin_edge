@@ -16,7 +16,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 // ENV: ALLOWED_ORIGINS=https://your-domain.com,https://other-domain.com
 const ALLOWED_ORIGINS = (
-  process.env.ALLOWED_ORIGINS ?? "http://www.globalshorefinservices.com,https://www.globalshorefinservices.com"
+  process.env.ALLOWED_ORIGINS ?? "http://www.globalshorefinservices.com,https://www.globalshorefinservices.com,https://global-shore-fin-edge.vercel.app,http://localhost:4000,http://localhost:5173"
 )
   .split(",")
   .map((s) => s.trim())
