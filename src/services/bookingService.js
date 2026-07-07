@@ -12,9 +12,15 @@ async function writeAll(bookings) {
     await writeJson(BOOKINGS_FILE, {bookings});
 }
 
-export async function listBookings() {
+export async function listBookings(countryCode) {
     const bookings = await readAll();
-    return [...bookings].sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""));
+    const filtered = countryCode
+        ? bookings.filter((b) =>
+              (b.countryCode ?? "").toUpperCase() === countryCode.toUpperCase() ||
+              (b.country ?? "").toLowerCase().includes(countryCode.toLowerCase())
+          )
+        : bookings;
+    return [...filtered].sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""));
 }
 
 export async function createBooking(input) {
@@ -25,6 +31,7 @@ export async function createBooking(input) {
         email: input.email,
         phone: input.phone ?? "",
         country: input.country ?? "",
+        countryCode: input.countryCode ?? "",
         service: input.service ?? "",
         preferredAt: input.preferredAt ?? "",
         message: input.message ?? "",

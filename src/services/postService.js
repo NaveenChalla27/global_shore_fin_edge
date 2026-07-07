@@ -11,9 +11,13 @@ async function writeAll(posts) {
     await writeJson(POSTS_FILE, {posts});
 }
 
-export async function listPosts() {
+// countryCode: filter to a specific country; null/undefined returns all posts
+export async function listPosts(countryCode) {
     const posts = await readAll();
-    return [...posts].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+    const filtered = countryCode
+        ? posts.filter((p) => (p.country ?? "").toUpperCase() === countryCode.toUpperCase())
+        : posts;
+    return [...filtered].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
 }
 
 export async function getPost(slug) {
@@ -36,6 +40,7 @@ export async function createPost(input) {
         thumb: input.thumb ?? "thumb",
         publishedAt: input.publishedAt ?? new Date().toISOString().slice(0, 10),
         body: input.body ?? "",
+        country: input.country ?? null,
     };
     posts.push(post);
     await writeAll(posts);

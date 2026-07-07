@@ -1,14 +1,72 @@
 {
-  "phone": "+1 (203) 435-3563",
-  "phoneHref": "tel:+12034353563",
-  "email": "support@globalshore.com",
-  "emailHref": "mailto:support@globalshore.com",
-  "hours": "Mon-Fri: 9AM - 7PM (MST)",
-  "whatsapp": "10000000000",
-  "address": "Hyderabad, India",
-  "socials": {
-    "linkedin": "#",
-    "twitter": "#",
-    "instagram": "#"
+  "default": {
+    "phone": "+1 (203) 435-3563",
+    "phoneHref": "tel:+12034353563",
+    "email": "support@globalshore.com",
+    "emailHref": "mailto:support@globalshore.com",
+    "hours": "Mon-Fri: 9AM - 7PM (MST)",
+    "whatsapp": "10000000000",
+    "address": "Hyderabad, India",
+    "socials": {
+      "linkedin": "#",
+      "twitter": "#",
+      "instagram": "#"
+    }
+  },
+  "US": {
+    "phone": "+1 (203) 435-1234",
+    "phoneHref": "tel:+12034351234",
+    "email": "us@globalshore.com",
+    "emailHref": "mailto:us@globalshore.com",
+    "hours": "Mon-Fri: 9AM - 7PM (MST)",
+    "whatsapp": "10000000000",
+    "address": "United States",
+    "socials": {
+      "linkedin": "#",
+      "twitter": "#",
+      "instagram": "#"
+    }
+  },
+  "IN": {
+    "phone": "+91 40 1234 5678",
+    "phoneHref": "tel:+914012345678",
+    "email": "india@globalshore.com",
+    "emailHref": "mailto:india@globalshore.com",
+    "hours": "Mon-Fri: 9AM - 6PM (IST)",
+    "whatsapp": "914012345678",
+    "address": "Hyderabad, India",
+    "socials": {
+      "linkedin": "#",
+      "twitter": "#",
+      "instagram": "#"
+    }
+  },
+  "UK": {
+    "phone": "+44 20 1234 5678",
+    "phoneHref": "tel:+442012345678",
+    "email": "uk@globalshore.com",
+    "emailHref": "mailto:uk@globalshore.com",
+    "hours": "Mon-Fri: 9AM - 6PM (GMT)",
+    "whatsapp": "442012345678",
+    "address": "London, United Kingdom",
+    "socials": {
+      "linkedin": "#",
+      "twitter": "#",
+      "instagram": "#"
+    }
+  },
+  "CA": {
+    "phone": "+1 (416) 123-4567",
+    "phoneHref": "tel:+14161234567",
+    "email": "canada@globalshore.com",
+    "emailHref": "mailto:canada@globalshore.com",
+    "hours": "Mon-Fri: 9AM - 6PM (EST)",
+    "whatsapp": "14161234567",
+    "address": "Toronto, Canada",
+    "socials": {
+      "linkedin": "#",
+      "twitter": "#",
+      "instagram": "#"
+    }
   }
 }

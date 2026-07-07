@@ -1,4 +1,3 @@
-
 import {randomUUID} from "node:crypto";
 import {readJson, writeJson} from "../store/jsonStore.js";
 import {TESTIMONIALS_FILE} from "../config/paths.js";
@@ -13,9 +12,13 @@ async function writeAll(testimonials) {
     await writeJson(TESTIMONIALS_FILE, {testimonials});
 }
 
-export async function listTestimonials() {
+// countryCode: filter to a specific country; null/undefined returns all
+export async function listTestimonials(countryCode) {
     const items = await readAll();
-    return [...items].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+    const filtered = countryCode
+        ? items.filter((t) => (t.country ?? "").toUpperCase() === countryCode.toUpperCase())
+        : items;
+    return [...filtered].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
 }
 
 export async function getTestimonial(id) {
@@ -39,6 +42,7 @@ export async function createTestimonial(input) {
         initials: input.initials ?? input.name?.slice(0, 2).toUpperCase() ?? "",
         rating: input.rating ?? 5,
         publishedAt: input.publishedAt ?? new Date().toISOString().slice(0, 10),
+        country: input.country ?? null,
     };
     items.push(item);
     await writeAll(items);

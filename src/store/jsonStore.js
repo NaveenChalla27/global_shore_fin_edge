@@ -52,7 +52,7 @@ function collectionName(file) {
     return basename(file, ".json"); // "bookings", "contacts", etc.
 }
 
-export async function readJson(file, fallback) {
+export async function readJson(file, fallback={}) {
     // --- Mode 1: MongoDB — one collection per data type ---
     if (MONGODB_URI) {
         try {

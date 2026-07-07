@@ -37,6 +37,21 @@ router.get("/posts/:slug", posts.getOne);
 router.put("/posts/:slug", posts.update);
 router.delete("/posts/:slug", posts.remove);
 
+// Testimonials
+router.get("/testimonials", testimonials.list);
+router.post("/testimonials", testimonials.create);
+router.get("/testimonials/:id", testimonials.getOne);
+router.put("/testimonials/:id", testimonials.update);
+router.delete("/testimonials/:id", testimonials.remove);
+
+// --- Nested per-country routes ---
+router.get("/countries/:code/contacts", contacts.get);
+router.put("/countries/:code/contacts", contacts.update);
+router.get("/countries/:code/posts", posts.list);
+router.post("/countries/:code/posts", posts.create);
+router.get("/countries/:code/testimonials", testimonials.list);
+router.post("/countries/:code/testimonials", testimonials.create);
+
 // Auth
 router.post("/auth/login", auth.login);
 router.get("/auth/me", requireAuth, auth.me);
@@ -45,12 +60,5 @@ router.post("/auth/logout", auth.logout);
 // Consultation bookings (list is admin-only)
 router.get("/bookings", requireAuth, bookings.list);
 router.post("/bookings", bookings.create);
-
-// Testimonials
-router.get("/testimonials", testimonials.list);
-router.post("/testimonials", testimonials.create);
-router.get("/testimonials/:id", testimonials.getOne);
-router.put("/testimonials/:id", testimonials.update);
-router.delete("/testimonials/:id", testimonials.remove);
 
 export default router;
