@@ -5,64 +5,40 @@ import {MongoClient} from "mongodb";
 
 const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGODB_URL;
 const DB_NAME = process.env.MONGODB_DB || "edge-service";
-const STORE_COLLECTION = "store";
 
 // ---------------------------------------------------------------------------
-// MongoDB connection — cached so the same TCP connection is reused across
-// warm serverless invocations (avoids per-request handshake overhead).
+// MongoDB connection — one cached client reused across warm invocations.
 // ---------------------------------------------------------------------------
 let _client = null;
 
-async function getCollection() {
+async function getDb() {
     if (!_client) {
         _client = new MongoClient(MONGODB_URI);
         await _client.connect();
     }
-    return _client.db(DB_NAME).collection(STORE_COLLECTION);
+    return _client.db(DB_NAME);
 }
 
-// ---------------------------------------------------------------------------
-// In-memory fallback — used when MONGODB_URI is not set at all.
-// Seeds from bundled JSON files; writes visible within the same warm instance.
-// ---------------------------------------------------------------------------
-const memCache = new Map();
-
-async function memRead(file, fallback) {
-    const key = basename(file);
-    if (!memCache.has(key)) {
-        try {
-            memCache.set(key, JSON.parse(await readFile(file, "utf8")));
-        } catch {
-            memCache.set(key, fallback);
-        }
-    }
-    return memCache.get(key);
-}
-
-// _id in MongoDB = filename without extension  e.g. "bookings", "contacts"
-function docId(file) {
-    return basename(file, ".json");
+// Each JSON file maps to its own MongoDB collection.
+// e.g. "bookings.json" → collection "bookings", document _id "data"
+function collectionName(file) {
+    return basename(file, ".json"); // "bookings", "contacts", etc.
 }
 
 export async function readJson(file, fallback) {
-    // --- Mode 1: MongoDB (works both locally and on Vercel when URI is set) ---
+    // --- Mode 1: MongoDB — one collection per data type ---
     if (MONGODB_URI) {
         try {
-            const col = await getCollection();
-            const doc = await col.findOne({_id: docId(file)});
+            const db = await getDb();
+            const doc = await db.collection(collectionName(file)).findOne({_id: "data"});
             if (doc) {
                 const {_id, ...data} = doc;
                 return data;
             }
-        } catch {
-            // fall through to bundled seed file
+        } catch (err) {
+            console.error(`[store] MongoDB read failed for '${collectionName(file)}':`, err.message);
         }
-        // First read — seed data from bundled JSON file
-        try {
-            return JSON.parse(await readFile(file, "utf8"));
-        } catch {
-            return fallback;
-        }
+        return fallback;
     }
 
     // --- Mode 2: Filesystem (local dev without MONGODB_URI) ---
@@ -76,12 +52,17 @@ export async function readJson(file, fallback) {
 export async function writeJson(file, value) {
     // --- Mode 1: MongoDB ---
     if (MONGODB_URI) {
-        const col = await getCollection();
-        await col.replaceOne(
-            {_id: docId(file)},
-            {_id: docId(file), ...value},
-            {upsert: true}
-        );
+        try {
+            const db = await getDb();
+            await db.collection(collectionName(file)).replaceOne(
+                {_id: "data"},
+                {_id: "data", ...value},
+                {upsert: true}
+            );
+        } catch (err) {
+            console.error(`[store] MongoDB write failed for '${collectionName(file)}':`, err.message);
+            throw err;
+        }
         return;
     }
 
@@ -93,28 +74,29 @@ export async function writeJson(file, value) {
 
 // ---------------------------------------------------------------------------
 // seedDatabase — loads bundled JSON files into MongoDB on first deploy.
-// Called once at startup; skips any collection that already has a document.
+// Called once at startup; skips any collection that already has data.
 // ---------------------------------------------------------------------------
 export async function seedDatabase(files) {
-    if (!MONGODB_URI) return; // filesystem mode — nothing to seed
+    if (!MONGODB_URI) return;
     try {
-        const col = await getCollection();
+        const db = await getDb();
         for (const file of files) {
-            const id = docId(file);
-            const exists = await col.findOne({_id: id});
+            const name = collectionName(file);
+            const exists = await db.collection(name).findOne({_id: "data"});
             if (exists) {
-                console.log(`[seed] '${id}' already in MongoDB — skipped`);
+                console.log(`[seed] '${name}' already in MongoDB — skipped`);
                 continue;
             }
             try {
                 const data = JSON.parse(await readFile(file, "utf8"));
-                await col.insertOne({_id: id, ...data});
-                console.log(`[seed] '${id}' loaded into MongoDB`);
+                await db.collection(name).insertOne({_id: "data", ...data});
+                console.log(`[seed] '${name}' loaded into MongoDB`);
             } catch (err) {
-                console.warn(`[seed] could not seed '${id}':`, err.message);
+                console.warn(`[seed] could not seed '${name}':`, err.message);
             }
         }
     } catch (err) {
         console.error("[seed] MongoDB seed failed:", err.message);
     }
 }
+
