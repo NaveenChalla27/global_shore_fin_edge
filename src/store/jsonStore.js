@@ -7,16 +7,43 @@ const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGODB_URL;
 const DB_NAME = process.env.MONGODB_DB || "edge-service";
 
 // ---------------------------------------------------------------------------
-// MongoDB connection — one cached client reused across warm invocations.
+// MongoDB connection — cached client with auto-reconnect on topology errors.
+// Serverless functions can sit idle long enough for Atlas to close the socket;
+// withDb() detects that and transparently reconnects before retrying.
 // ---------------------------------------------------------------------------
 let _client = null;
 
+async function createClient() {
+    const client = new MongoClient(MONGODB_URI, {
+        maxPoolSize: 1,                    // one connection per serverless instance
+        serverSelectionTimeoutMS: 5000,
+        connectTimeoutMS: 10000,
+        socketTimeoutMS: 45000,
+    });
+    await client.connect();
+    return client;
+}
+
 async function getDb() {
-    if (!_client) {
-        _client = new MongoClient(MONGODB_URI);
-        await _client.connect();
-    }
+    if (!_client) _client = await createClient();
     return _client.db(DB_NAME);
+}
+
+// Runs fn(db) and retries once after resetting the client on topology errors.
+async function withDb(fn) {
+    try {
+        return await fn(await getDb());
+    } catch (err) {
+        const isTopologyError =
+            err.message?.includes("Topology is closed") ||
+            err.message?.includes("Client must be connected") ||
+            err.name === "MongoNotConnectedError";
+        if (isTopologyError) {
+            _client = null;                // drop dead connection
+            return await fn(await getDb()); // reconnect + retry once
+        }
+        throw err;
+    }
 }
 
 // Each JSON file maps to its own MongoDB collection.
@@ -29,16 +56,18 @@ export async function readJson(file, fallback) {
     // --- Mode 1: MongoDB — one collection per data type ---
     if (MONGODB_URI) {
         try {
-            const db = await getDb();
-            const doc = await db.collection(collectionName(file)).findOne({_id: "data"});
-            if (doc) {
-                const {_id, ...data} = doc;
-                return data;
-            }
+            return await withDb(async (db) => {
+                const doc = await db.collection(collectionName(file)).findOne({_id: "data"});
+                if (doc) {
+                    const {_id, ...data} = doc;
+                    return data;
+                }
+                return fallback;
+            });
         } catch (err) {
             console.error(`[store] MongoDB read failed for '${collectionName(file)}':`, err.message);
+            return fallback;
         }
-        return fallback;
     }
 
     // --- Mode 2: Filesystem (local dev without MONGODB_URI) ---
@@ -53,11 +82,12 @@ export async function writeJson(file, value) {
     // --- Mode 1: MongoDB ---
     if (MONGODB_URI) {
         try {
-            const db = await getDb();
-            await db.collection(collectionName(file)).replaceOne(
-                {_id: "data"},
-                {_id: "data", ...value},
-                {upsert: true}
+            await withDb((db) =>
+                db.collection(collectionName(file)).replaceOne(
+                    {_id: "data"},
+                    {_id: "data", ...value},
+                    {upsert: true}
+                )
             );
         } catch (err) {
             console.error(`[store] MongoDB write failed for '${collectionName(file)}':`, err.message);
@@ -79,7 +109,7 @@ export async function writeJson(file, value) {
 export async function seedDatabase(files) {
     if (!MONGODB_URI) return;
     try {
-        const db = await getDb();
+        const db = await withDb((db) => db);
         for (const file of files) {
             const name = collectionName(file);
             const exists = await db.collection(name).findOne({_id: "data"});
