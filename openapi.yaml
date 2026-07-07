@@ -398,6 +398,12 @@ paths:
       summary: List consultation booking requests
       security:
         - cookieAuth: []
+      parameters:
+        - name: country
+          in: query
+          required: false
+          description: Filter by country code (e.g. US, IN, CA, UK)
+          schema: {type: string}
       responses:
         "401": {$ref: "#/components/responses/Unauthorized"}
         "200":
@@ -748,7 +754,8 @@ components:
         name: {type: string, minLength: 1}
         email: {type: string, format: email}
         phone: {type: string}
-        country: {type: string}
+        country: {type: string, description: "Country name (e.g. United States)"}
+        countryCode: {type: string, description: "ISO country code (e.g. US, IN, CA, UK)"}
         service: {type: string, description: "Service the user is interested in"}
         preferredAt: {type: string, description: "Preferred date/time, free text or ISO"}
         message: {type: string}
@@ -760,4 +767,5 @@ components:
           required: [id, createdAt]
           properties:
             id: {type: string}
+            source: {type: string}
             createdAt: {type: string, format: date-time}
