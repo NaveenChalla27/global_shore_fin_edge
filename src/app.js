@@ -98,6 +98,14 @@ export function createApp() {
     })
   );
 
+  // Prevent CDN and browser caching on all API responses
+  app.use("/api", (_req, res, next) => {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Surrogate-Control", "no-store");
+    next();
+  });
+
   // API routes
   app.use("/api", apiRouter);
 

@@ -5,6 +5,7 @@ import * as contacts from "../controllers/contactController.js";
 import * as posts from "../controllers/postController.js";
 import * as bookings from "../controllers/bookingController.js";
 import * as testimonials from "../controllers/testimonialController.js";
+import * as serviceDetails from "../controllers/serviceDetailController.js";
 import * as auth from "../controllers/authController.js";
 import * as health from "../controllers/healthController.js";
 import {requireAuth} from "../middleware/authMiddleware.js";
@@ -60,5 +61,10 @@ router.post("/auth/logout", auth.logout);
 // Consultation bookings (list is admin-only)
 router.get("/bookings", requireAuth, bookings.list);
 router.post("/bookings", bookings.create);
+
+// Service categories and service details (read-only — served from static JSON in edge service)
+router.get("/service-categories", serviceDetails.listCategories);
+router.get("/service-categories/:slug", serviceDetails.getCategory);
+router.get("/services/:slug", serviceDetails.getService);
 
 export default router;

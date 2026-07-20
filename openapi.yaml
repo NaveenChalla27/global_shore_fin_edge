@@ -16,6 +16,7 @@ tags:
   - name: Auth
   - name: Countries
   - name: Services
+  - name: ServiceDetails
   - name: Contacts
   - name: Posts
   - name: Bookings
@@ -545,6 +546,57 @@ paths:
         "204": {description: Deleted}
         "404": {$ref: "#/components/responses/NotFound"}
 
+  /api/service-categories:
+    get:
+      tags: [ServiceDetails]
+      summary: List all service categories with their services
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [categories]
+                properties:
+                  categories:
+                    type: array
+                    items: {$ref: "#/components/schemas/ServiceCategory"}
+
+  /api/service-categories/{slug}:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema: {type: string, minLength: 1}
+    get:
+      tags: [ServiceDetails]
+      summary: Get one service category
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ServiceCategory"}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /api/services/{slug}:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema: {type: string, minLength: 1}
+    get:
+      tags: [ServiceDetails]
+      summary: Get one service by slug
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ServiceDetail"}
+        "404": {$ref: "#/components/responses/NotFound"}
+
 components:
   parameters:
     CountryCode:
@@ -769,3 +821,72 @@ components:
             id: {type: string}
             source: {type: string}
             createdAt: {type: string, format: date-time}
+
+    Faq:
+      type: object
+      required: [q, a]
+      properties:
+        q: {type: string}
+        a: {type: string}
+
+    ServiceDetail:
+      type: object
+      required: [slug, name, category, categorySlug, benefit, description]
+      properties:
+        slug: {type: string}
+        name: {type: string}
+        category: {type: string}
+        categorySlug: {type: string}
+        benefit: {type: string}
+        description: {type: string}
+        whoFor:
+          type: array
+          items: {type: string}
+        includes:
+          type: array
+          items: {type: string}
+        whyChoose:
+          type: array
+          items: {type: string}
+        faqs:
+          type: array
+          items: {$ref: "#/components/schemas/Faq"}
+
+    ServiceDetailUpdate:
+      type: object
+      properties:
+        name: {type: string}
+        benefit: {type: string}
+        description: {type: string}
+        whoFor:
+          type: array
+          items: {type: string}
+        includes:
+          type: array
+          items: {type: string}
+        whyChoose:
+          type: array
+          items: {type: string}
+        faqs:
+          type: array
+          items: {$ref: "#/components/schemas/Faq"}
+
+    ServiceCategory:
+      type: object
+      required: [slug, name]
+      properties:
+        slug: {type: string}
+        name: {type: string}
+        blurb: {type: string}
+        services:
+          type: array
+          items: {$ref: "#/components/schemas/ServiceDetail"}
+
+    ServiceCategoryUpdate:
+      type: object
+      properties:
+        name: {type: string}
+        blurb: {type: string}
+        services:
+          type: array
+          items: {$ref: "#/components/schemas/ServiceDetail"}
