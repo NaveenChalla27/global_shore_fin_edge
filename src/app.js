@@ -16,7 +16,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 // ENV: ALLOWED_ORIGINS=https://your-domain.com,https://other-domain.com
 const ALLOWED_ORIGINS = (
-  process.env.ALLOWED_ORIGINS ?? "http://www.globalshorefinservices.com,https://www.globalshorefinservices.com,https://global-shore-fin-edge.vercel.app,http://localhost:4000,http://localhost:5173"
+  process.env.ALLOWED_ORIGINS ?? "http://www.globalshorefinservices.com,https://www.globalshorefinservices.com,http://globalshorefinservices.com,https://globalshorefinservices.com,https://global-shore-fin-edge.vercel.app,http://localhost:4000,http://localhost:5173"
 )
   .split(",")
   .map((s) => s.trim())
@@ -33,7 +33,9 @@ export function createApp() {
         // Allow requests with no origin (e.g. server-to-server, curl)
         if (!origin) return callback(null, true);
         if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
-        callback(new Error(`CORS: origin '${origin}' not allowed`));
+        const corsErr = new Error(`CORS: origin '${origin}' not allowed`);
+        corsErr.status = 403;
+        callback(corsErr);
       },
       credentials: true,
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
